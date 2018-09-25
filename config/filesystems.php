@@ -48,6 +48,11 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'odoofiles' => [
+            'driver' => 'local',
+            'root' => '\Users\alfre\code\storage\csv',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
@@ -63,7 +68,21 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
         ],
+        'sftp' => [
+            'driver' => 'sftp',
+            'host' => '192.241.192.160',
+            'username' => 'forge',
+     //       'password' => 'your-password',
 
+             'privateKey' => 'c:Users\alfre\.ssh\github.rsa',
+            // 'password' => 'encryption-password',
+
+            // Optional SFTP Settings...
+             'port' => 22,
+             'root' => '/',
+            // 'timeout' => 30,
+        ],
     ],
 
+// Storage::disk('partitionE')->put('file.txt', 'Contents');
 ];

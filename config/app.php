@@ -150,6 +150,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Collective\Html\HtmlServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         'Collective\Html\HtmlServiceProvider',
         Barryvdh\DomPDF\ServiceProvider::class,

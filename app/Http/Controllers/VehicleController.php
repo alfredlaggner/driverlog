@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Vehicle;
 
 class VehicleController extends Controller
 {
@@ -13,7 +14,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        //
+        return view('vehicle.index')->with('vehicles', Vehicle::all());
     }
 
     /**
@@ -23,7 +24,7 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        //
+        return view('vehicle.create');
     }
 
     /**
@@ -34,7 +35,13 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $vehicle = new Vehicle;
+
+        $vehicle->model = $request->get('model');
+        $vehicle->make = $request->get('make');
+        $vehicle->plate = $request->get('plate');
+        $vehicle->save();
+        return redirect('vehicles');
     }
 
     /**
@@ -56,7 +63,8 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $vehicle = \App\Vehicle::find($id);
+        return view('vehicle.edit',compact('vehicle','id'));    
     }
 
     /**
@@ -68,7 +76,12 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $vehicle = \App\Vehicle::find($id);
+        $vehicle->model = $request->get('model');
+        $vehicle->make = $request->get('make');
+        $vehicle->plate = $request->get('plate');
+        $vehicle->save();
+        return redirect('vehicles');
     }
 
     /**
@@ -79,6 +92,8 @@ class VehicleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vehicle = \App\Vehicle::find($id);
+        $vehicle->delete();
+        return redirect('vehicles')->with('success','Information has been  deleted');    
     }
 }

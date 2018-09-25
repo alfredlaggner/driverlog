@@ -10,7 +10,7 @@ class Customer extends Model
 
     public function contact()
     {
-        return $this->hasMany('App\Contact','customer_id','ext_id');
+        return $this->hasOne('App\Contact','ext_id','ext_id');
     }
 
 }

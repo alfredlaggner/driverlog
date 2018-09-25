@@ -3,6 +3,7 @@
         vertical-align: center;
         width: 30mm;
     }
+
     td {
         vertical-align: center;
         width: 60mm;
@@ -12,10 +13,12 @@
     <tbody>
     <tr>
         <th> ACTUAL DATE AND TIME OF DEPARTURE</th>
-        <td>05-12-2018 1pm</td>
+        <td><?php date("m/d/Y") ?> <?php date("h")?></td>
     </tr>
-        <th> ESTIMATED DATE AND TIME OF ARRIVAL</th>
-        <td>05-12-2018 1pm</td>
+    <th> ESTIMATED DATE AND TIME OF ARRIVAL</th>
+    <td>@php
+            date("m/d/Y")." ".date("h:I")
+        @endphp</td>
     </tr>
     </tbody>
 </table>
