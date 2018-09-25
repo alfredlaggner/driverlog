@@ -6,10 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class SaleInvoice extends Model
 {
+    protected $table = 'saleinvoices';
 
     public function customer()
     {
         return $this->belongsTo('App\Customer', 'ext_id_shipping', 'ext_id');
+    }
+    public function driverlog()
+    {
+        return $this->belongsTo('App\DriverLog', 'ext_id', '$saleinvoice_id');
     }
 
     public function unit()

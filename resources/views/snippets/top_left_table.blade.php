@@ -12,8 +12,12 @@
         <td>{{ $invoice->invoice_number }}</td>
     </tr>
     <tr>
-        <th>ATTACHED PAGES"</th>
-        <td>YES NO</td>
+        <th>ATTACHED PAGES</th>
+        @if ($isAttachedPages)
+        <td>Yes</td>
+        @else
+            <td>No</td>
+        @endif
     </tr>
     </tbody>
 </table>

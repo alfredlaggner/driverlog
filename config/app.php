@@ -162,6 +162,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Edujugon\Laradoo\Providers\OdooServiceProvider::class
 
     ],
 
@@ -215,7 +216,7 @@ return [
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'PDF' => Barryvdh\DomPDF\Facade::class,
-
+        'Odoo' => Edujugon\Laradoo\Facades\Odoo::class,
     ],
 
 ];

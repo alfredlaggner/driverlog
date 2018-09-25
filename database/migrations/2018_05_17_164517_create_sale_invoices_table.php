@@ -13,7 +13,7 @@ class CreateSaleInvoicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sale_invoices', function (Blueprint $table) {
+        Schema::create('saleinvoices', function (Blueprint $table) {
             $table->increments('id');
             $table->string('invoice_number',10)->nullable();
             $table->date('order_date')->nullable();
@@ -36,6 +36,6 @@ class CreateSaleInvoicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sale_invoices');
+        Schema::dropIfExists('saleinvoices');
     }
 }

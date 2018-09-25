@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Driver Logs')
 @section('content')
-    <h4>Edit Driver Log</h4><br/>
+    <h4 class="text-center">Edit Driver Log</h4><br/>
     <form method="post" action="{{action('VehicleController@update', $id)}}">
         @csrf
         <input name="_method" type="hidden" value="PATCH">

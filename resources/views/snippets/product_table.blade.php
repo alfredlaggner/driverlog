@@ -11,7 +11,7 @@ $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
 <table style="table-layout: auto; width: 178mm;" class="table-sm table-bordered">
     <thead>
     <tr>
-        <th style="">UID NUMBER</th>
+        <th style="">UIDx NUMBER</th>
         <th style="width: 80mm">ITEM NAME</th>
         <th style="width: 20mm">QTY ORDERED</th>
         <th scope="col">QTY REC'D</th>
@@ -24,7 +24,7 @@ $fmt = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
     <tbody>
     @foreach ($products as $product)
         <tr>
-            <td> {{ str_replace(['[',']'],'',substr($product->name,0,8)) }}</td>
+            <td> {{ $product->code }}</td>
             <td> {{ substr($product->name,9,50) }}</td>
             <td   style="width: 5mm" class="text-right"> {{ $product->quantity }}</td>
             <td class="grey"></td>

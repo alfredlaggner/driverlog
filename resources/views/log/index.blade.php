@@ -28,7 +28,9 @@
 
             <tr>
                 <td>{{$log->id}}</td>
+{{--
                 <td>{{$log->saleinvoices->invoice_id}}</td>
+--}}
 
                 <td><a href="{{action('DriverLogController@edit', $log['id'])}}" class="btn btn-warning">Edit</a></td>
                 <td>
