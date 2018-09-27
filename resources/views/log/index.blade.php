@@ -20,10 +20,12 @@
         </tr>
         </thead>
         <tbody>
-
+        @php
+               //  dd($logs);
+        @endphp
         @foreach($logs as $log)
             @php
-                //          dd($log->driver->first_name);
+     //           dd($logs);
             @endphp
 
             <tr>

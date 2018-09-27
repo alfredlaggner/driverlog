@@ -10,11 +10,11 @@ class SaleInvoice extends Model
 
     public function customer()
     {
-        return $this->belongsTo('App\Customer', 'ext_id_shipping', 'ext_id');
+        return $this->belongsTo('App\Customer', 'customer_id', 'ext_id');
     }
     public function driverlog()
     {
-        return $this->belongsTo('App\DriverLog', 'ext_id', '$saleinvoice_id');
+        return $this->belongsTo('App\DriverLog', 'sale_order_id','ext_id');
     }
 
     public function unit()

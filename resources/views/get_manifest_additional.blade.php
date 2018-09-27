@@ -13,6 +13,7 @@
 --}}
 <a href="{{ route('driver-edit') }}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Drivers</a>
 <a href="{{ route('vehicle-edit') }}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Vehicles</a>
+<a href="{{ route('note-edit') }}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Notes</a>
 
 </body>
 </html>
