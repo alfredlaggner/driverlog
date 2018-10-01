@@ -27,8 +27,8 @@ class DriverLog extends Model
     {
         return $this->hasMany('App\SaleInvoice','ext_id','saleinvoice_id');
     }
-    public function sales_orders()
+    public function salesorder()
     {
-        return $this->hasMany('App\SalesOrder','sales_order','sales_order_id');
+        return $this->hasOne('App\SalesOrder','sales_order','sales_order_id');
     }
 }

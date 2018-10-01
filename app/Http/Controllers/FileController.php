@@ -74,24 +74,23 @@ class FileController extends Controller
         if (count($sale_orders)) {
 
             foreach ($sale_orders as $sale_order) {
-                $this->getSaleOrder($id = $sale_order);
-                $this->driver_log($driver, $vehicle, $sale_order);
-                $driver_logs = DriverLog::where('saleinvoice_id', '=', $sale_order)->limit(1)->get();
-                return view('log.action')->with('logs', $driver_logs);
+                $delivery_date = $this->getFromOdoo($id = $sale_order);
+                $this->driver_log($driver, $vehicle, $sale_order, $delivery_date);
+                /*                $driver_logs = DriverLog::where('saleinvoice_id', '=', $sale_order)->limit(1)->get();
+                                return view('log.action')->with('logs', $driver_logs);*/
             }
-            /*
-                                dd(" end driver log here");
-                                $data = $this->printManifest($driver, $vehicle);
+                             dd(" end driver log here");
+            $data = $this->printManifest($driver, $vehicle);
 
-                                \PDF::setOptions(['dpi' => 150, 'defaultMediaType' => 'screen', 'defaultFont' => 'sans-serif', 'enable_html5_parser' => true, 'orientation' => 'landscape']);
-                                return (\PDF::loadView('main_manifest', $data)->download('manifest.pdf'));
-                                // return ($pdf->stream('manifest.pdf'));*/
+            \PDF::setOptions(['dpi' => 150, 'defaultMediaType' => 'screen', 'defaultFont' => 'sans-serif', 'enable_html5_parser' => true, 'orientation' => 'landscape']);
+            return (\PDF::loadView('main_manifest', $data)->download('manifest.pdf'));
+            // return ($pdf->stream('manifest.pdf'));*/
 
         }
         return redirect()->route('make_manifest');
     }
 
-    public function driver_log($driver, $vehicle, $order_id)
+    public function driver_log($driver, $vehicle, $order_id, $delivery_date)
     {
         //		dd($order);
         $sale_invoices = SaleInvoice::where('ext_id', '=', $order_id)->limit(1)->get();
@@ -101,11 +100,13 @@ class FileController extends Controller
         }
 
         $driver_log = new DriverLog;
+
         $driver_log->vehicle_id = $vehicle->id;
         $driver_log->driver_id = $driver->id;
         $driver_log->saleinvoice_id = $order_id;
         $driver_log->salesperson_id = $sales_person_id;
         $driver_log->customer_id = $customer_id;
+        $driver_log->delivery_date = $delivery_date;
         $driver_log->save();
 
 
@@ -196,7 +197,7 @@ class FileController extends Controller
         return ($data);
     }
 
-    public function getSaleOrder($id = '')
+    public function getFromOdoo($id = '')
     {
         $odoo = new \Edujugon\Laradoo\Odoo();
         $odoo = $odoo->connect();
@@ -216,6 +217,7 @@ class FileController extends Controller
         //	$odoo = new \Edujugon\Laradoo\Odoo();
         //	$odoo = $odoo->connect();
         $id = (int)$id;
+        //   echo $id;
         //      dd($id);
         $order = $odoo->where('id', '=', $id)
             ->limit(1)
@@ -228,6 +230,16 @@ class FileController extends Controller
             )
             ->get('sale.order');
         $this->importSalesOrderIntoDB($order, $odoo);
+
+        $picking = $odoo->where('sale_id', '=', $id)
+            ->limit(1)
+            ->fields(
+                'scheduled_date'
+            )
+            ->get('stock.picking');
+        $delivery_date = substr($picking[0]['scheduled_date'], 0, 10);
+//			dd($picking);
+
 
         //	  dd($order);
 
@@ -277,6 +289,8 @@ class FileController extends Controller
 
         $this->importOrderLinesIntoDB($order_lines, $order, $odoo);
 
+        return $delivery_date;
+
     }
 
 
@@ -299,7 +313,7 @@ class FileController extends Controller
                 'order_date' => $order_date,
                 'salesperson_id' => $order[0]['user_id'][0],
                 'sales_order' => $order[0]['display_name'],
-           //     'customer_id' => $order[0]['order_partner_id'],
+                //     'customer_id' => $order[0]['order_partner_id'],
                 'sales_order_id' => substr($order[0]['display_name'], 2),
             ];
         }
@@ -455,7 +469,7 @@ class FileController extends Controller
         }
         //    dd($arr);
         if (!empty($arr)) {
-            \DB::table('customers')->delete();
+            /*            \DB::table('customers')->delete();*/
             \DB::table('customers')->insert($arr);
             //        dd('Insert Customers Records successfully.');
             return true;

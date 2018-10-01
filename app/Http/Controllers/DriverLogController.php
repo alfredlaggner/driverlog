@@ -17,11 +17,12 @@ class DriverLogController extends Controller
     public function index()
     {
 
-        $logs = DriverLog::all();
+        $logs = DriverLog::where('created_at', '>=', today())->get();
         foreach ($logs as $log) {
-            /*				echo $log->driver->first_name . "<br>";*/
+//cho $log->customer->name . "<br>";
+//dd($logs);
         }
-        return view('log.index')->with('logs', DriverLog::all());
+        return view('log.index')->with('logs', $logs);
     }
 
     /**
@@ -29,6 +30,12 @@ class DriverLogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function edit_action($sale_order)
+    {
+        $driver_logs = DriverLog::where('saleinvoice_id', '=', $sale_order)->limit(1)->get();
+        return view('log.action')->with('logs', $driver_logs);
+    }
+
     public function create()
     {
         // 	dd(Driver::all());

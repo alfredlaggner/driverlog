@@ -56,4 +56,6 @@ Route::get('/get-relationship-column-datatables-data', 'DataTableController@getR
 
 Route::get('/get-extra-data-datatables-attributes-data', 'DataTableController@getExtraDataDatatablesAttributesData')->name('get_extra_data_datatables_attributes_data');
 Route::get('/download1/{id}', 'HomeController@download1')->name('download1');
+
+Route::get('/edit_action/{sale_order_od}', 'DriverlogController@edit_action')->name('edit_action');
 /* end laratables*/
