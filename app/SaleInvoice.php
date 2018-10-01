@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SaleInvoice extends Model
 {
     protected $table = 'saleinvoices';
+	protected $fillable = ['invoice_number','ext_id','order_date','ext_id_shipping','name','quantity','ext_id_unit','unit_price','sales_person_id','code','updated_at','created_at'];
 
     public function customer()
     {
